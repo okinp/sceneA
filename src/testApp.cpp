@@ -1,38 +1,45 @@
 #include "testApp.h"
 //--------------------------------------------------------------
 void testApp::setup(){
-	ofSetWindowTitle("lava test");
+//	ofSetWindowTitle("lava test");
 	ofBackground(0, 0, 0);
-	ofSetBackgroundAuto(true);
-	ofSetVerticalSync(true);
+	ofSetBackgroundAuto(false);
+//	ofSetVerticalSync(true);
 	
-	//client.setup("settings.xml", this);
-	myParticles.sampleImage(2);
+	client.setup("settings.xml", this);
+	myParticles.sampleImage(3);
 	moveToCenter = false;
 	moveBack = false;
 	paused = false;
 	sampleS = 1;
 	
-	myMaxOSC.setup();
+	//myMaxOSC.setup();
 	svgPaths.loadFile("test6.svg");
 	extractData();
 	
 	//Start client
-	//client.start();
+	client.start();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
 	
 	
-	//Update
-	myParticles.update();
-	myMaxOSC.update();
-	myParticles.scaleY = (int)myMaxOSC.freq;
-	
 }
 //--------------------------------------------------------------
 void testApp::draw(){
+	
+	
+}
+void testApp::frameEvent()
+{
+	ofBackground(0.0f, 0.0f, 0.0f);
+	//cout << "Happening" << endl;
+	//Update
+	myParticles.update();
+	//myMaxOSC.update();
+	myParticles.scaleY = 0;
+//	myParticles.scaleY = (int)myMaxOSC.freq;
 	//Draw
 	myParticles.draw();
 	glPointSize(2);
@@ -54,102 +61,178 @@ void testApp::draw(){
 	}
 	glEnd();
 	
+	//Message processing
+	// read any incoming messages
+    if (client.messageAvailable()) {
+        vector<string> msg = client.getDataMessage();
+		//cout << "the message is: " << msg[0] << endl;
+		if (msg[0].c_str()[0]=='[') {
+			myParticles.pointSize--;
+		}
+		
+		if (msg[0].c_str()[0]==']') {
+			myParticles.pointSize++;
+		}
+		
+		if (msg[0].c_str()[0]=='>') {
+			myParticles.amount++;
+		}
+		
+		if (msg[0].c_str()[0]=='<') {
+			if (myParticles.amount !=1) {
+				myParticles.amount--;
+				
+			}
+		}
+		
+		if (msg[0].c_str()[0]=='2') {
+			sampleS++;
+			myParticles.sampleImage(sampleS);
+		}
+		
+		if (msg[0].c_str()[0]=='1') {
+			sampleS--;
+			myParticles.sampleImage(sampleS);
+		}
+		
+		if (msg[0].c_str()[0]=='x') {
+			
+			myParticles.scaleX++;
+		}
+		
+		if (msg[0].c_str()[0]=='X') {
+			
+			myParticles.scaleX--;
+		}
+		
+		if (msg[0].c_str()[0]=='y') {
+			
+			myParticles.scaleY++;
+		}
+		
+		if (msg[0].c_str()[0]=='Y') {
+			
+			myParticles.scaleY--;
+		}
+		
+		if (msg[0].c_str()[0]=='z') {
+			myParticles.scaleZ++;
+		}
+		
+		if (msg[0].c_str()[0]=='Z') {
+			myParticles.scaleZ--;
+		}
+		
+		if (msg[0].c_str()[0]=='c') {
+			myParticles.mustMoveBack = false;
+			myParticles.mustMoveToCenter = true;
+			myParticles.mustMoveRandom = false;
+			myParticles.mustMovePaused = false;
+		}
+		
+		if (msg[0].c_str()[0]=='r') {
+			myParticles.mustMoveBack = false;
+			myParticles.mustMoveToCenter = false;
+			myParticles.mustMoveRandom = true;
+			myParticles.mustMovePaused = false;
+		}
+		
+		if (msg[0].c_str()[0]=='b') {
+			myParticles.mustMoveBack = true;
+			myParticles.mustMoveToCenter = false;
+			myParticles.mustMoveRandom = false;
+			myParticles.mustMovePaused = false;
+		}
+	}
+	
 }
-
 
 //--------------------------------------------------------------
 void testApp::keyPressed  (int key){
 	
 	if (key == '['){
-		//client.broadcast("[");
-		--myParticles.pointSize;
+		client.broadcast("[");
+		
 		
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	if (key == ']'){
-		//client.broadcast("]");
-		++myParticles.pointSize;
+		client.broadcast("]");
+		
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == '>'){
-		//client.broadcast(">");
-		++myParticles.amount;
+		client.broadcast(">");
+		
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	if (key == '<') {
-		//client.broadcast("<");
-		if (myParticles.amount !=1) {
-			--myParticles.amount;
-		}
+		client.broadcast("<");
+
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
-	if (key == '}'){
-		//client.broadcast("}");
-		++sampleS;
-		myParticles.sampleImage(sampleS);
+	if (key == '2'){
+		client.broadcast("2");
+
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
-	if (key == '{') {
-		//client.broadcast("{");
-		--sampleS;
-		myParticles.sampleImage(sampleS);
+	if (key == '1') {
+		client.broadcast("1");
+
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'x') {
-		//client.broadcast("x");
-		++myParticles.scaleX;
+		client.broadcast("x");
+
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'X') {
-		//client.broadcast("X");
-		--myParticles.scaleX;
+		client.broadcast("X");
+
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'y') {
-		//client.broadcast("y");
-		++myParticles.scaleY;
+		client.broadcast("y");
+	
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'Y') {
-		//client.broadcast("Y");
-		--myParticles.scaleY;
+		client.broadcast("Y");
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'z') {
-		//client.broadcast("z");
+		client.broadcast("z");
 		
-		++myParticles.scaleZ;
+		
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'Z') {
-		//client.broadcast("Z");
-		--myParticles.scaleZ;
+		client.broadcast("Z");
+		
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	
 	if (key == 'c') {
-		//client.broadcast("C");
-		myParticles.mustMoveBack = false;
-		myParticles.mustMoveToCenter = true;
-		myParticles.mustMoveRandom = false;
-		myParticles.mustMovePaused = false;
+		client.broadcast("c");
+
 		
 		//cout << "mC is: " << moveToCenter << "and mB is: "<< moveBack << endl;
 	}
 	if (key == 'r') {
-		//client.broadcast("r");
-		myParticles.mustMoveBack = false;
-		myParticles.mustMoveToCenter = false;
-		myParticles.mustMoveRandom = true;
-		myParticles.mustMovePaused = false;
+		client.broadcast("r");
+	
+	}
+	if (key == 'b') {
+		client.broadcast("b");
+		
 	}
 }
 

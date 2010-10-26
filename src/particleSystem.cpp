@@ -144,16 +144,16 @@ void particleSystem::moveBack()
 void particleSystem::sampleImage(int sampleSize) {
 
 	particles.clear();
-	for (int y=0; y< img.getHeight(); y+=sampleSize)
+	for (int y=0; y< img.getHeight(); )
 	{
-		for (int x=0; x< img.getWidth(); x+=sampleSize) {
+		for (int x=0; x< img.getWidth(); ) {
 			if ((float) pixels[y*(int)img.getWidth()+x] >=thres) {
 				pixelParticle* p = new pixelParticle(ofxVec3f(x,y,0), ofxVec3f(1.0f,1.0f,1.0f ));
 				particles.push_back(p);
 			} 
-			
+			x+=sampleSize;
 		}
-		
+		y+=sampleSize;
 	}
 }
 

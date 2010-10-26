@@ -14,6 +14,7 @@
 #include <vector>
 #include "ofxVectorMath.h"
 #include "ofxVec3f.h"
+#include "perlin.h"
 #include "pixelParticle.h"
 
 class particleSystem {

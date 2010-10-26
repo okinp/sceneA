@@ -33,6 +33,7 @@
 		8ECCDE901276741800BAC542 /* maxOSC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCDE8A1276741800BAC542 /* maxOSC.cpp */; };
 		8ECCDE911276741800BAC542 /* particleSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCDE8C1276741800BAC542 /* particleSystem.cpp */; };
 		8ECCDE921276741800BAC542 /* pixelParticle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCDE8D1276741800BAC542 /* pixelParticle.cpp */; };
+		8ECCDEA012767D3100BAC542 /* perlin.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8ECCDE9E12767D3100BAC542 /* perlin.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
 		E45BE2E40E8CC69C009D7055 /* rtAudio.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE2E30E8CC69C009D7055 /* rtAudio.a */; };
 		E45BE97B0E8CC7DD009D7055 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE9710E8CC7DD009D7055 /* AGL.framework */; };
@@ -183,6 +184,8 @@
 		8ECCDE8C1276741800BAC542 /* particleSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = particleSystem.cpp; path = openFrameworks/of_preRelease_v0061_osxSL_FAT/apps/bigScreens/sceneA/src/particleSystem.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		8ECCDE8D1276741800BAC542 /* pixelParticle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = pixelParticle.cpp; path = openFrameworks/of_preRelease_v0061_osxSL_FAT/apps/bigScreens/sceneA/src/pixelParticle.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		8ECCDE8E1276741800BAC542 /* pixelParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pixelParticle.h; path = openFrameworks/of_preRelease_v0061_osxSL_FAT/apps/bigScreens/sceneA/src/pixelParticle.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		8ECCDE9E12767D3100BAC542 /* perlin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = perlin.cpp; path = openFrameworks/of_preRelease_v0061_osxSL_FAT/apps/bigScreens/sceneA/src/perlin.cpp; sourceTree = SYSTEM_DEVELOPER_DIR; };
+		8ECCDE9F12767D3100BAC542 /* perlin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = perlin.h; path = openFrameworks/of_preRelease_v0061_osxSL_FAT/apps/bigScreens/sceneA/src/perlin.h; sourceTree = SYSTEM_DEVELOPER_DIR; };
 		E45BE0390E8CC647009D7055 /* FreeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FreeImage.h; path = ../../../libs/freeimage/include/FreeImage.h; sourceTree = SOURCE_ROOT; };
 		E45BE03F0E8CC650009D7055 /* fmod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fmod.h; path = ../../../libs/fmodex/include/fmod.h; sourceTree = SOURCE_ROOT; };
 		E45BE0400E8CC650009D7055 /* fmod.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fmod.hpp; path = ../../../libs/fmodex/include/fmod.hpp; sourceTree = SOURCE_ROOT; };
@@ -738,6 +741,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				8ECCDE9E12767D3100BAC542 /* perlin.cpp */,
+				8ECCDE9F12767D3100BAC542 /* perlin.h */,
 				8ECCDE881276741800BAC542 /* bezierCurve.cpp */,
 				8ECCDE891276741800BAC542 /* bezierCurve.h */,
 				8ECCDE8A1276741800BAC542 /* maxOSC.cpp */,
@@ -947,6 +952,7 @@
 				8ECCDE901276741800BAC542 /* maxOSC.cpp in Sources */,
 				8ECCDE911276741800BAC542 /* particleSystem.cpp in Sources */,
 				8ECCDE921276741800BAC542 /* pixelParticle.cpp in Sources */,
+				8ECCDEA012767D3100BAC542 /* perlin.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

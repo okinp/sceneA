@@ -3,11 +3,13 @@
 
 
 #include "ofMain.h"
+#include <vector>
 #include "ofxVec3f.h"
+#include "perlin.h"
 #include "particleSystem.h"
 #include "ofxSvgLoader.h"
 #include "maxOSC.h"
-//#include "ofxMostPixelsEver.h"
+#include "ofxMostPixelsEver.h"
 
 
 struct bezier {
@@ -18,8 +20,7 @@ struct bezier {
 	ofxVec2f cp2;
 };
 
-//class testApp : public ofBaseApp, public mpeClientListener{
-class testApp : public ofBaseApp {
+class testApp : public ofBaseApp, public mpeClientListener{
 	
 public:
 	void setup();
@@ -36,7 +37,7 @@ public:
 	void sampleImage(int sampleSize);
 	void extractData();
 	void extractBeziers();
-	//void frameEvent();
+	void frameEvent();
 	vector < vector <ofxVec2f> > extractedShapes;
 	
 	particleSystem myParticles;
@@ -50,7 +51,7 @@ public:
 	
 	vector <bezier> theBeziers;
 private:
-	//mpeClientTCP client;
+	mpeClientTCP client;
 };
 
 #endif
